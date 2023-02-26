@@ -36,3 +36,13 @@ li.selected {
     padding: 30px;
     padding-top: 50px;
 }
+
+.char_data li p {
+    display: inline;
+}
+
+.char_data li p {
+    display: inline-block;
+    width: 100px;
+    margin: 0;
+}

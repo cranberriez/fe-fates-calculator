@@ -720,5 +720,9 @@ function setDetails(character, isMale) {
     if (isMale) id = "#men_data"
 
     $(`${id} h3`).text(`${character.name} ${character.class}`)
-    
+    let stats = Object.keys(character)
+    for (let i = 2; i < stats.length; i++) {
+        const element = stats[i];
+        $(`${id} .${element} span`).text(character[element])
+    }
 }
