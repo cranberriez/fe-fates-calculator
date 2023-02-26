@@ -1,0 +1,38 @@
+.characer_cont, #men, #women {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    box-sizing: border-box;
+    padding: 10px 5px;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+li:hover {
+    border: 1px solid black;
+}
+
+li.selected {
+    background-color: rgba(255,255,255,0.4);
+}
+
+#men {
+    background-color: #74b9ff;
+}
+
+#women {
+    background-color: #fab1a0;
+}
+
+.char_data {
+    padding: 30px;
+    padding-top: 50px;
+}
