@@ -1,3 +1,7 @@
+body {
+    background-color: #222222;
+}
+
 .characer_cont, #men, #women {
     display: flex;
     flex-direction: row;
@@ -16,7 +20,7 @@ li {
     border: 1px solid transparent;
 }
 
-li:hover {
+.char_list li:hover {
     border: 1px solid black;
 }
 
@@ -26,10 +30,12 @@ li.selected {
 
 #men {
     background-color: #74b9ff;
+    padding: 5px;
 }
 
 #women {
     background-color: #fab1a0;
+    padding: 5px;
 }
 
 .char_data {
