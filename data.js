@@ -83,7 +83,25 @@ Reina 	40 	45 	5 	20 	45 	10 	20 	10
 Kaden 	45 	40 	10 	25 	45 	50 	35 	40
 Ryoma 	50 	45 	0 	50 	45 	40 	35 	25
 Scarlet 	30 	45 	20 	40 	50 	40 	25 	20
-Yukimura 	25 	25 	5 	40 	15 	30 	25 	30`
+Yukimura 	25 	25 	5 	40 	15 	30 	25 	30
+Gunter 	15 	5 	0 	5 	0 	15 	5 	5
+Elise 	30 	5 	65 	25 	55 	70 	15 	40
+Arthur 	50 	45 	0 	55 	35 	5 	45 	20
+Effie 	35 	60 	0 	35 	50 	50 	35 	30
+Odin 	55 	35 	30 	55 	35 	60 	40 	20
+Niles 	40 	35 	20 	40 	50 	30 	30 	40
+Nyx 	30 	5 	50 	35 	50 	20 	15 	30
+Camilla 	40 	50 	25 	50 	55 	25 	35 	45
+Selena 	40 	30 	5 	25 	45 	30 	45 	30
+Beruka 	45 	30 	10 	55 	30 	45 	40 	25
+Laslow 	50 	45 	0 	45 	30 	55 	35 	25
+Peri 	30 	50 	5 	30 	50 	35 	25 	45
+Benny 	50 	40 	0 	50 	10 	35 	55 	45
+Charlotte 	65 	55 	0 	35 	50 	45 	20 	5
+Leo 	45 	25 	55 	35 	45 	45 	30 	45
+Keaton 	60 	60 	0 	20 	35 	30 	50 	25
+Xander 	45 	50 	5 	40 	35 	60 	40 	15
+Flora 	35 	40 	20 	45 	30 	35 	30 	30`
 
 let classGrowthData = `Nohr Prince(ss) 	15 	15 	10 	10 	10 	10 	10 	5
 Nohr Noble 	15 	10 	15 	5 	15 	5 	5 	15
@@ -159,17 +177,20 @@ function rawGrowthToList(data) {
     data.forEach(row => {
         let rowArray = row.split("\t")
         let items = rowArray.splice(0,1)
+        for (let i = 0; i < items.length; i++) {
+            items[i] = items[i].trim()
+            
+        }
         if (items[0].includes(',')) {
             items = items[0].split(',')
         }
 
         for (let i = 0; i < rowArray.length; i++) {
-            rowArray[i] = rowArray[i].trim()
+            rowArray[i] = parseInt(rowArray[i].trim())
         }
 
         items.forEach(i => {
             i.trim()
-
             finalData[i] = rowArray
         });
     });

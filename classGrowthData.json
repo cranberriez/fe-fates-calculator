@@ -1,4 +1,4 @@
-var classGrowth = {
+{
   "Nohr Prince(ss)": [
     15,
     15,
@@ -229,7 +229,7 @@ var classGrowth = {
     5,
     10
   ],
-  "Butler": [
+  " Butler": [
     0,
     10,
     10,
