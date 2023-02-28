@@ -164,3 +164,8 @@ function setDetails(character) {
     $(`${id} li`).remove()
     $(`${id} ul`).append(statsHTML)
 }
+
+function updateDetails() {
+    setDetails(selected_female)
+    setDetails(selected_male)
+}
