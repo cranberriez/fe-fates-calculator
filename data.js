@@ -56,27 +56,88 @@ Flora *1 	Maid 	5 	29 	18 	16 	25 	15 	11 	14 	23 	6
 Mozu 	Villager 	1 	16 	6 	0 	5 	7 	3 	4 	1 	5
 Fuga *2 	Master of Arms 	10 	41 	29 	0 	27 	25 	18 	29 	15 	6`
 
+let charGrowthData = `Avatar 	45 	45 	30 	40 	45 	45 	35 	25
+Felicia 	40 	10 	35 	30 	40 	55 	15 	35
+Jakob 	50 	30 	15 	40 	35 	45 	25 	25
+Kaze 	55 	40 	0 	45 	65 	20 	20 	35
+Azura 	25 	50 	25 	60 	60 	40 	15 	35
+Silas 	40 	45 	5 	50 	40 	40 	40 	25
+Shura 	30 	25 	10 	20 	35 	30 	15 	35
+Izana 	45 	15 	35 	55 	30 	45 	35 	35
+Mozu 	30 	40 	5 	50 	55 	45 	35 	30
+Rinkah 	20 	25 	15 	50 	45 	35 	45 	20
+Sakura 	45 	30 	50 	40 	40 	55 	30 	20
+Hana 	25 	55 	10 	45 	55 	25 	20 	30
+Subaki 	55 	30 	20 	50 	20 	25 	45 	5
+Saizo 	40 	50 	45 	60 	30 	55 	45 	10
+Orochi 	35 	5 	65 	50 	15 	35 	25 	45
+Hinoka 	45 	45 	15 	40 	45 	40 	35 	40
+Azama 	55 	50 	20 	40 	45 	40 	40 	20
+Setsuna 	30 	20 	0 	30 	60 	30 	15 	40
+Hayato 	50 	30 	40 	30 	45 	60 	40 	20
+Oboro 	30 	40 	20 	40 	40 	40 	40 	30
+Hinata 	55 	35 	0 	25 	15 	45 	45 	15
+Takumi 	50 	35 	0 	60 	40 	45 	35 	20
+Kagero 	30 	65 	0 	20 	50 	30 	25 	40
+Reina 	40 	45 	5 	20 	45 	10 	20 	10
+Kaden 	45 	40 	10 	25 	45 	50 	35 	40
+Ryoma 	50 	45 	0 	50 	45 	40 	35 	25
+Scarlet 	30 	45 	20 	40 	50 	40 	25 	20
+Yukimura 	25 	25 	5 	40 	15 	30 	25 	30`
+
+let classGrowthData = `Nohr Prince(ss) 	15 	15 	10 	10 	10 	10 	10 	5
+Nohr Noble 	15 	10 	15 	5 	15 	5 	5 	15
+Cavalier 	10 	15 	0 	10 	10 	15 	10 	5
+Paladin 	10 	15 	0 	10 	10 	15 	10 	10
+Great Knight 	20 	20 	0 	10 	5 	5 	20 	0
+Knight 	20 	20 	0 	15 	5 	10 	20 	0
+General 	25 	20 	0 	15 	0 	10 	20 	5
+Fighter 	20 	20 	0 	15 	15 	5 	5 	0
+Berserker 	30 	25 	0 	15 	15 	0 	0 	0
+Mercenary 	10 	15 	0 	20 	15 	5 	10 	5
+Hero 	20 	15 	0 	20 	15 	5 	10 	0
+Bow Knight 	10 	10 	0 	15 	15 	10 	0 	10
+Outlaw 	0 	10 	5 	10 	20 	0 	0 	20
+Adventurer 	0 	5 	15 	5 	20 	0 	0 	20
+Wyvern Rider 	10 	15 	5 	10 	10 	5 	20 	0
+Wyvern Lord 	10 	15 	0 	15 	10 	5 	20 	0
+Malig Knight 	0 	15 	15 	10 	5 	0 	10 	15
+Dark Mage 	0 	10 	20 	0 	10 	0 	5 	10
+Sorcerer 	0 	0 	25 	0 	10 	0 	5 	15
+Dark Knight 	15 	20 	10 	5 	5 	5 	15 	5
+Troubadour 	0 	0 	10 	20 	10 	15 	0 	15
+Strategist 	0 	0 	15 	5 	10 	20 	0 	15
+Maid, Butler 	0 	10 	10 	15 	15 	10 	5 	10
+Wolfskin 	20 	20 	0 	5 	15 	5 	10 	0
+Wolfssegner 	20 	20 	0 	5 	15 	5 	10 	0`
+
 function rawToObjectList(data) {
     let finalData = {};
     data = data.split('\n');
+
     for (var i = 0; i < data.length; i++) {
         row = data[i].split('\t');
         if (row[0].includes("(Chapter 16)")) {
-            row.splice(1, 0, undefined)
+            row.splice(1, 0, '')
         }
-        finalData[`${row[0]}`] = {
-            name: row[0],
-            class: row[1],
-            level: row[2],
-            hp: row[3],
-            str: row[4],
-            mag: row[5],
-            skl: row[6],
-            spd: row[7],
-            lck: row[8],
-            def: row[9],
-            res: row[10],
-            mov: row[11],
+
+        row.forEach(e => {
+            e.trim(' ')
+        });
+
+        finalData[`${row[0].trim()}`] = {
+            name: row[0].trim(),
+            class: row[1].trim(),
+            level: row[2].trim(),
+            hp: row[3].trim(),
+            str: row[4].trim(),
+            mag: row[5].trim(),
+            skl: row[6].trim(),
+            spd: row[7].trim(),
+            lck: row[8].trim(),
+            def: row[9].trim(),
+            res: row[10].trim(),
+            mov: row[11].trim(),
         }
     }
 
@@ -85,7 +146,45 @@ function rawToObjectList(data) {
 
 let characters = rawToObjectList(data)
 
+
 fs.writeFile('charData.json', JSON.stringify(characters, null, 2), 'utf8', function callBack(err, data){
+    if (err)
+        console.error(err);
+});
+
+function rawGrowthToList(data) {
+    let finalData = {}
+    data = data.split('\n')
+
+    data.forEach(row => {
+        let rowArray = row.split("\t")
+        let items = rowArray.splice(0,1)
+        if (items[0].includes(',')) {
+            items = items[0].split(',')
+        }
+
+        for (let i = 0; i < rowArray.length; i++) {
+            rowArray[i] = rowArray[i].trim()
+        }
+
+        items.forEach(i => {
+            i.trim()
+
+            finalData[i] = rowArray
+        });
+    });
+
+    return finalData
+}
+
+let characterGrowth = rawGrowthToList(charGrowthData)
+fs.writeFile('charGrowthData.json', JSON.stringify(characterGrowth, null, 2), 'utf8', function callBack(err, data){
+    if (err)
+        console.error(err);
+});
+
+let classGrowth = rawGrowthToList(classGrowthData)
+fs.writeFile('classGrowthData.json', JSON.stringify(classGrowth, null, 2), 'utf8', function callBack(err, data){
     if (err)
         console.error(err);
 });
