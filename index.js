@@ -105,12 +105,10 @@ function createClasses() {
         character.setBaseStats(char)
 
         if (char.name in charGrowth) {
-            console.log(char.name)
             character.addGrowth(charGrowth[char.name])
         }
 
         if (char.class in classGrowth) {
-            console.log(char.name)
             character.addGrowth(classGrowth[char.class])
         }
 
@@ -128,38 +126,40 @@ $('#maleCharacters').on('click', "li", function() {
     $("#maleCharacters li").removeClass("selected")
     $(this).addClass("selected")
     let character = characters[this.id]
-    setDetails(character, true)
+    selected_male = character
+    setDetails(character)
 })
 
 $('#femaleCharacters').on('click', "li", function() {
     $("#femaleCharacters li").removeClass("selected")
     $(this).addClass("selected")
     let character = characters[this.id]
-    setDetails(character, false)
+    selected_female = character
+    setDetails(character)
 })
 
-var selected_male;
-var selected_female;
+var selected_male = characters[`${men[0]}`];
+var selected_female = characters[`${women[0]}`];
 
-function setDetails(character, isMale) {
+function setDetails(character) {
     let id = "#women_data"
-    if (isMale) id = "#men_data"
+    if (character.gender == 'male') id = "#men_data"
 
     $(`${id} h3`).text(`${character.name}`)
     $(`${id} h4`).text(`${character.class}`)
     let stats = character.getStats()
     let growth = character.getGrowth()
     
-    let statsHTML = `<li><p></p>          <p>Base</p>           <p>Growth</p></div>` +
-                    `<li><p>HP:</p>       <p>${stats.hp}</p>    <p>${growth.hp}</p></div>` +
-                    `<li><p>Strength:</p> <p>${stats.str}</p>   <p>${growth.str}</p></div>` +
-                    `<li><p>Magic:</p>    <p>${stats.mag}</p>   <p>${growth.mag}</p></div>` +
-                    `<li><p>Skill:</p>    <p>${stats.skl}</p>   <p>${growth.skl}</p></div>` +
-                    `<li><p>Speed:</p>    <p>${stats.spd}</p>   <p>${growth.spd}</p></div>` +
-                    `<li><p>Luck:</p>     <p>${stats.lck}</p>   <p>${growth.lck}</p></div>` +
-                    `<li><p>Defense:</p>  <p>${stats.def}</p>   <p>${growth.def}</p></div>` +
-                    `<li><p>Resilience:</p><p>${stats.res}</p>  <p>${growth.res}</p></div>` +
-                    `<li><p>Movement:</p> <p>${stats.mov}</p>   <p>${growth.mov}</p></div>`
+    let statsHTML = `<li><p></p>            <p>Base</p>           <p>Growth</p></div>` +
+                    `<li><p>HP:</p>         <p>${stats.hp}</p>    <p>${growth.hp}</p></div>` +
+                    `<li><p>Strength:</p>   <p>${stats.str}</p>   <p>${growth.str}</p></div>` +
+                    `<li><p>Magic:</p>      <p>${stats.mag}</p>   <p>${growth.mag}</p></div>` +
+                    `<li><p>Skill:</p>      <p>${stats.skl}</p>   <p>${growth.skl}</p></div>` +
+                    `<li><p>Speed:</p>      <p>${stats.spd}</p>   <p>${growth.spd}</p></div>` +
+                    `<li><p>Luck:</p>       <p>${stats.lck}</p>   <p>${growth.lck}</p></div>` +
+                    `<li><p>Defense:</p>    <p>${stats.def}</p>   <p>${growth.def}</p></div>` +
+                    `<li><p>Resilience:</p> <p>${stats.res}</p>  <p>${growth.res}</p></div>` +
+                    `<li><p>Movement:</p>   <p>${stats.mov}</p>   <p>${growth.mov}</p></div>`
 
     $(`${id} li`).remove()
     $(`${id} ul`).append(statsHTML)
