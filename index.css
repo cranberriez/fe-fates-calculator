@@ -1,12 +1,31 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     background-color: #222222;
     font-family: sans-serif;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -8px;
 }
 
-.characer_cont, #men, #women {
+.characer_cont, .characer_cont > div {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+}
+
+.characer_cont > div {
+    margin: 25px;
+}
+
+.characer_cont div h2, .characer_cont div li {
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 ul {
@@ -14,9 +33,19 @@ ul {
     padding: 0;
 }
 
+.char_list {
+    min-width: 100px;
+    background-color: rgba(255,255,255,0.1);
+}
+
+.char_list > div {
+    margin: 15px;
+    padding: 5px;
+}
+
 .char_list li {
     box-sizing: border-box;
-    padding: 10px 5px;
+    padding: 8px 0;
     cursor: pointer;
     border: 1px solid transparent;
 }
@@ -27,20 +56,27 @@ ul {
 
 .char_list li.selected {
     background-color: rgba(255,255,255,0.4);
+    font-weight: bold;
 }
 
 #men {
     background-color: #74b9ff;
-    padding: 5px;
 }
 
 #women {
     background-color: #fab1a0;
-    padding: 5px;
+}
+
+#child.has_child {
+    background-color: #7f7f7f;
+}
+
+#child ul {
+    padding-top: 90px;
 }
 
 .char_data {
-    min-width: 350px;
+    min-width: 400px;
     padding: 30px;
     padding-top: 50px;
 }
@@ -51,7 +87,7 @@ ul {
 
 .char_stats li p {
     display: inline-block;
-    width: 100px;
+    width: 95px;
     margin: 0;
 }
 

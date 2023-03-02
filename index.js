@@ -69,6 +69,10 @@ class Character {
     getGrowth() {
         return this.growthStats
     }
+
+    getGrowthArray() {
+        return Object.values(this.growthStats)
+    }
 }
 
 function appendCharacter(character, listID) {
@@ -163,9 +167,50 @@ function setDetails(character) {
 
     $(`${id} li`).remove()
     $(`${id} ul`).append(statsHTML)
+
+    updateChild()
+}
+
+function updateChild() {
+    if (selected_male == undefined || selected_female == undefined) return
+
+    let child = new Character()
+    child.addGrowth( createChildGrowth(selected_male, selected_female))
+
+    $(`#child_data ul li`).remove()
+    $(`#child_data ul`).append( getStatsHTML(child) )
 }
 
 function updateDetails() {
     setDetails(selected_female)
     setDetails(selected_male)
+}
+
+function createChildGrowth(father, mother) {
+    let fatherStats = father.getGrowthArray()
+    let motherStats = mother.getGrowthArray()
+    let childStats = []
+
+    for (let i = 0; i < fatherStats.length; i++) {
+        childStats[i] = Math.floor((fatherStats[i] + motherStats[i]) / 2)
+    }
+
+    return childStats
+}
+
+function getStatsHTML(char) {
+    let stats = char.getStats()
+    let growth = char.getGrowth()
+    let statsHTML = `<li><p></p>            <p>Base</p>           <p>Growth</p></div>` +
+                    `<li><p>HP:</p>         <p>${stats.hp}</p>    <p>${growth.hp}</p></div>` +
+                    `<li><p>Strength:</p>   <p>${stats.str}</p>   <p>${growth.str}</p></div>` +
+                    `<li><p>Magic:</p>      <p>${stats.mag}</p>   <p>${growth.mag}</p></div>` +
+                    `<li><p>Skill:</p>      <p>${stats.skl}</p>   <p>${growth.skl}</p></div>` +
+                    `<li><p>Speed:</p>      <p>${stats.spd}</p>   <p>${growth.spd}</p></div>` +
+                    `<li><p>Luck:</p>       <p>${stats.lck}</p>   <p>${growth.lck}</p></div>` +
+                    `<li><p>Defense:</p>    <p>${stats.def}</p>   <p>${growth.def}</p></div>` +
+                    `<li><p>Resilience:</p> <p>${stats.res}</p>  <p>${growth.res}</p></div>` +
+                    `<li><p>Movement:</p>   <p>${stats.mov}</p>   <p>${growth.mov}</p></div>`
+
+    return statsHTML
 }
