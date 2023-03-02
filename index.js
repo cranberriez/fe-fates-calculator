@@ -108,9 +108,9 @@ function createClasses() {
             character.addGrowth(charGrowth[char.name])
         }
 
-        if (char.class in classGrowth) {
-            character.addGrowth(classGrowth[char.class])
-        }
+        // if (char.class in classGrowth) {
+        //     character.addGrowth(classGrowth[char.class])
+        // }
 
         characters[char.name] = character
     }
