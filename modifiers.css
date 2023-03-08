@@ -153,8 +153,5 @@ li {
         justify-content: flex-start;
         align-items: center;
     }
-    #char_lists {
-        display: flex;
-    }
 }
 

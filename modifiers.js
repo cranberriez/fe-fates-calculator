@@ -49,7 +49,7 @@ function updateData() {
     });
     if (selectedMale) {
         $('#child-father').append(
-            `<li>Dad</li>`
+            `<li>M</li>`
         )
         for (var key in selectedMale) {
             let value = selectedMale[key]
@@ -60,7 +60,7 @@ function updateData() {
     }
     if (selectedFemale) {
         $('#child-mother').append(
-            `<li>Mom</li>`
+            `<li>F</li>`
         )
         for (var key in selectedFemale) {
             let value = selectedFemale[key]
@@ -72,7 +72,7 @@ function updateData() {
 
     if (selectedMale && selectedFemale) {
         $('#child-modifiers').append(
-            `<li>Kid</li>`
+            `<li>C</li>`
         )
         var childStats = {};
         for (var key in selectedMale) {
