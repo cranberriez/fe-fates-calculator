@@ -12,6 +12,7 @@ $(function() {
 
     createPeople(men, 'men')
     createPeople(women, 'women')
+    getHighestStat(men)
 })
 
 window.addEventListener('resize', () => {
@@ -113,4 +114,39 @@ function createPeople(names, gender) {
             )
         }
     });
+}
+
+function getHighestStat(people) {
+    let maxStats = {
+        Str: -Infinity,
+        Mag: -Infinity,
+        Skl: -Infinity,
+        Spd: -Infinity,
+        Lck: -Infinity,
+        Def: -Infinity,
+        Res: -Infinity,
+    }
+
+    let nameForStat = {
+        Str: '',
+        Mag: '',
+        Skl: '',
+        Spd: '',
+        Lck: '',
+        Def: '',
+        Res: '',
+    }
+
+    people.forEach((person) => {
+        let char = getCharacter(person)
+        Object.keys(char).forEach((stat) => {
+          if (char[stat] > maxStats[stat]) {
+            maxStats[stat] = char[stat];
+            nameForStat[stat] = person
+          }
+        });
+    });
+
+    console.log(maxStats)
+    console.log(nameForStat)
 }
