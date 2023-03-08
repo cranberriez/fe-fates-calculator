@@ -14,7 +14,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 60px;
 }
 
 header {
@@ -128,7 +127,6 @@ ul#women {
 
 @media only screen and (max-width: 600px) {
     body {
-        padding-top: 75px;
         justify-content: flex-start;
         align-items: center;
     }
