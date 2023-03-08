@@ -1,5 +1,9 @@
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
 }
 
 body {
@@ -10,7 +14,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: -8px;
+    padding-top: 60px;
 }
 
 header {
@@ -23,28 +27,47 @@ header a {
     padding: 10px;
     background-color: white ;
     color: black;
+    border: 2px solid white;
+    text-decoration: none;
 }
+
+header a:not(.active) {
+    background-color: transparent;
+    color: white;
+}
+
+main {
+    height: 100%;
+    width: 100%;
+}
+
+li {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+  }
 
 #char_lists {
     display: flex;
+    height: 100%;
 }
 
 #char_lists ul {
     list-style: none;
-    padding: 0;
 }
 
 #char_lists ul li {
-    padding: 6px 12px;
-    cursor: pointer;
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    min-width: fit-content;
+    width: 100%;
 }
 
-#char_lists ul li:hover {
-    background-color: rgba(255,255,255,0.2);
-}
-
-#char_lists ul li:selected {
-    border: 1px solid black;
+.parent {
+    display: flex;
+    flex-direction: column;
 }
 
 ul#men {
@@ -55,21 +78,65 @@ ul#women {
     background-color: #fab1a0;
 }
 
+.parent li {
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 0 15px;
+    border: 2px solid transparent
+}
+
+.parent li:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+
+.parent li.selected {
+    background-color: #222;
+}
+
+.parent#men li.selected {
+    border: 2px solid #74b9ff;
+    color: #74b9ff;
+}
+
+.parent#women li.selected {
+    border: 2px solid #fab1a0;
+    color: #fab1a0;
+}
+
+
 #char_lists #child {
     display: flex;
 }
 
 #child li {
     height: 22px;
+    padding: 15px 15px;
+    border: 1px solid #333;
+}
+
+#child ul {
+    color: white;
+}
+
+#child ul li:first-child {
+    font-weight: bold;
+}
+
+#child-label li {
+    font-weight: bold;
 }
 
 @media only screen and (max-width: 600px) {
     body {
-        padding-top: 40px;
+        padding-top: 75px;
         justify-content: flex-start;
         align-items: center;
     }
     #char_lists {
         display: flex;
     }
-  }
+    #child {
+        flex-grow: 1;
+    }
+}
+

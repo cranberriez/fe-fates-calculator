@@ -19,9 +19,13 @@ $('#char_lists ul#men, #char_lists ul#women').on('click', 'li', function() {
     let gender = this.dataset.gender
     let charData = getCharacter(this.id)
     if (gender == 'men') {
+        $('#men li').removeClass('selected')
+        $(this).addClass('selected')
         selectedMale = charData
     }
-    else {
+    else if (gender == "women") {
+        $('#women li').removeClass('selected')
+        $(this).addClass('selected')
         selectedFemale = charData
     }
     updateData()
@@ -62,14 +66,16 @@ function updateData() {
         $('#child-modifiers').append(
             `<li>Kid</li>`
         )
-        let childStats = selectedMale
-        for (var key in childStats) {
+        var childStats = {};
+        for (var key in selectedMale) {
+            childStats[key] = selectedMale[key]
             childStats[key] += selectedFemale[key]
+            childStats[key] += 1
         }
+        console.log(childStats)
         for (var key in childStats) {
-
             $('#child-modifiers').append(
-                `<li>${selectedFemale[key]}</li>`
+                `<li>${childStats[key]}</li>`
             )
         }
     }
