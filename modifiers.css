@@ -69,11 +69,15 @@ li {
     flex-direction: column;
 }
 
-ul#men {
+.parent li {
+    background-color: #222;
+}
+
+#men li {
     background-color: #74b9ff;
 }
 
-ul#women {
+#women li {
     background-color: #fab1a0;
 }
 
@@ -84,11 +88,20 @@ ul#women {
     border: 2px solid transparent
 }
 
-.parent li:hover {
-    background-color: rgba(255,255,255,0.2);
+.parent#men li:hover {
+    background-color: rgba(116, 185, 255,0.8);
 }
 
-.parent li.selected {
+.parent#women li:hover {
+    background-color: rgba(250, 177, 160,0.6);
+}
+
+
+.parent#men li.selected {
+    background-color: #222;
+}
+
+.parent#women li.selected {
     background-color: #222;
 }
 
@@ -107,10 +120,11 @@ ul#women {
     display: flex;
 }
 
-#child li {
-    height: 22px;
-    padding: 15px 15px;
+#child ul li {
+    height: 26px;
+    padding: 12px 12px;
     border: 1px solid #333;
+    text-align: center;
 }
 
 #child ul {
@@ -132,9 +146,6 @@ ul#women {
     }
     #char_lists {
         display: flex;
-    }
-    #child {
-        flex-grow: 1;
     }
 }
 
