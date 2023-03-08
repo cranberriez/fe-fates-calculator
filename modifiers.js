@@ -12,8 +12,8 @@ $(function() {
 
     createPeople(men, 'men')
     createPeople(women, 'women')
-    $('#highestMale ul').append(highestStatHTML(getHighestStat(men)))
-    $('#highestFemale ul').append(highestStatHTML(getHighestStat(women)))
+    $('#highest-male ul').append(highestStatHTML(getHighestStat(men)))
+    $('#highest-female ul').append(highestStatHTML(getHighestStat(women)))
 })
 
 window.addEventListener('resize', () => {

@@ -139,10 +139,12 @@ ul li {
 }
 
 #child ul li {
+    display: flex;
     height: 26px;
-    padding: 12px 12px;
+    padding: 12px 10px;
     border: 1px solid #333;
     text-align: center;
+    justify-content: center;
 }
 
 #child ul li:first-child {
@@ -169,33 +171,41 @@ ul li {
     color:rgba(250, 177, 160, 1);
 }
 
-.highestStat {
+.highest-stat {
     max-width: 300px;
     padding: 5px;
     color: #CCCCCC;
 }
 
-.highestStat p.highestLabel {
+.highest-stat p.highest-label {
     text-align: center;
     text-decoration: underline;
     margin-bottom: 10px;
 }
 
-.highestStat li {
+.highest-stat li {
     display: grid;
     grid-template-columns: 25% 65% 10%;
     grid-template-rows: 1fr;
     margin-bottom: 15px;
 }
 
-.highestStat li p {
+.highest-stat li p {
     font-size: 18px;
 }
 
-.highestStat li p:first-child {
+.highest-stat li p:first-child {
     font-weight: bold;
     text-align: end;
     padding-right: 10px;
+}
+
+#highest-male .highest-label {
+    color: rgba(116, 185, 255,1)
+}
+
+#highest-female .highest-label {
+    color:rgba(250, 177, 160, 1);
 }
 
 @media only screen and (max-width: 600px) {
@@ -217,6 +227,12 @@ ul li {
         "chars child"
         "chars highestMale"
         "chars highestFemale";
-    }    
+    }
+    .highest-stat li {
+        margin-bottom: 8px;
+    }
+    .highest-stat p.highest-label {
+        margin-bottom: 4px;
+    }
 }
 
