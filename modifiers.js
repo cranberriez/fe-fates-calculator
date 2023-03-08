@@ -12,7 +12,8 @@ $(function() {
 
     createPeople(men, 'men')
     createPeople(women, 'women')
-    getHighestStat(men)
+    $('#highestMale ul').append(highestStatHTML(getHighestStat(men)))
+    $('#highestFemale ul').append(highestStatHTML(getHighestStat(women)))
 })
 
 window.addEventListener('resize', () => {
@@ -41,53 +42,30 @@ $('#char_lists ul#men, #char_lists ul#women').on('click', 'li', function() {
 })
 
 function updateData() {
-    $('#child li').remove()
-    $('#child-label').append(`<li> </li>`)
-    statLabels.forEach(element => {
-        $('#child-label').append(
-            `<li>${element}</li>`
-        )
-    });
-    if (selectedMale) {
-        $('#child-father').append(
-            `<li>M</li>`
-        )
-        for (var key in selectedMale) {
-            let value = selectedMale[key]
-            $('#child-father').append(
-                `<li class='${value > 0 ? 'positive' : 'negative'}'>${value ? value : ''}</li>`
-            )
-        }
-    }
-    if (selectedFemale) {
-        $('#child-mother').append(
-            `<li>F</li>`
-        )
-        for (var key in selectedFemale) {
-            let value = selectedFemale[key]
-            $('#child-mother').append(
-                `<li class='${value > 0 ? 'positive' : 'negative'}'>${value ? value : ''}</li>`
-            )
-        }
-    }
-
+    $('#child li').remove();
+    $('#child-label').html(`<li></li><li>${statLabels.join('</li><li>')}</li>`);
+    
+    const displayParent = (sex, data) => {
+      if (!sex) return;
+      $('#child-' + sex).append(`<li>${sex.charAt(0).toUpperCase()}</li>`);
+      for (const key in data) {
+        const value = data[key];
+        $('#child-' + sex).append(`<li class="${value > 0 ? 'positive' : 'negative'}">${value || ''}</li>`);
+      }
+    };
+    
+    displayParent('male', selectedMale);
+    displayParent('female', selectedFemale);
+    
     if (selectedMale && selectedFemale) {
-        $('#child-modifiers').append(
-            `<li>C</li>`
-        )
-        var childStats = {};
-        for (var key in selectedMale) {
-            childStats[key] = selectedMale[key]
-            childStats[key] += selectedFemale[key]
-            childStats[key] += 1
-        }
-        console.log(childStats)
-        for (var key in childStats) {
-            let value = childStats[key]
-            $('#child-modifiers').append(
-                `<li class='${value > 0 ? 'positive' : 'negative'}'>${value}</li>`
-            )
-        }
+      $('#child-modifiers').html(`<li>C</li>`);
+      const childStats = Object.fromEntries(
+        Object.entries(selectedMale).map(([key, value]) => [key, value + selectedFemale[key] + 1])
+    );
+      for (const key in childStats) {
+        const value = childStats[key];
+        $('#child-modifiers').append(`<li class="${value > 0 ? 'positive' : 'negative'}">${value}</li>`);
+      }
     }
 }
 
@@ -114,6 +92,16 @@ function createPeople(names, gender) {
             )
         }
     });
+}
+
+function highestStatHTML([stats, names]) {
+    var finalHTML = []
+    Object.keys(stats).forEach((stat) => {
+        finalHTML.push(
+            `<li><p>${stat}</p><p>${names[stat]}</p><p>${stats[stat]}</p></li>`
+        )
+    })
+    return finalHTML
 }
 
 function getHighestStat(people) {
@@ -147,6 +135,5 @@ function getHighestStat(people) {
         });
     });
 
-    console.log(maxStats)
-    console.log(nameForStat)
+    return [maxStats, nameForStat]   
 }

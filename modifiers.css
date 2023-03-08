@@ -19,10 +19,11 @@ body {
 main {
     display: grid;
     grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
     grid-template-areas: 
     "chars child"
     "chars highestMale"
-    "chars .";
+    "chars highestFemale";
 }
 
 header {
@@ -104,7 +105,7 @@ ul li {
 }
 
 .parent#women li:hover {
-    background-color: rgba(250, 177, 160,0.6);
+    background-color: rgba(250, 177, 160,0.8);
 }
 
 
@@ -126,14 +127,15 @@ ul li {
     color: #fab1a0;
 }
 
-
-#char_lists #child {
-    display: flex;
-}
-
 #child {
+    width: 100%;
     display: flex;
     grid-area: child;
+}
+
+
+#child ul {
+    color: white;
 }
 
 #child ul li {
@@ -141,10 +143,6 @@ ul li {
     padding: 12px 12px;
     border: 1px solid #333;
     text-align: center;
-}
-
-#child ul {
-    color: white;
 }
 
 #child ul li:first-child {
@@ -163,6 +161,43 @@ ul li {
     color: #e74c3c;
 }
 
+#child ul#child-male li:first-child {
+    color:rgba(116, 185, 255,1);
+}
+
+#child ul#child-female li:first-child {
+    color:rgba(250, 177, 160, 1);
+}
+
+.highestStat {
+    max-width: 300px;
+    padding: 5px;
+    color: #CCCCCC;
+}
+
+.highestStat p.highestLabel {
+    text-align: center;
+    text-decoration: underline;
+    margin-bottom: 10px;
+}
+
+.highestStat li {
+    display: grid;
+    grid-template-columns: 25% 65% 10%;
+    grid-template-rows: 1fr;
+    margin-bottom: 15px;
+}
+
+.highestStat li p {
+    font-size: 18px;
+}
+
+.highestStat li p:first-child {
+    font-weight: bold;
+    text-align: end;
+    padding-right: 10px;
+}
+
 @media only screen and (max-width: 600px) {
     body {
         justify-content: flex-start;
@@ -174,5 +209,14 @@ ul li {
     .parent li {
         padding: 0 8px;
     }
+    #child ul {
+        flex-grow: 1;
+    }
+    main {
+        grid-template-areas: 
+        "chars child"
+        "chars highestMale"
+        "chars highestFemale";
+    }    
 }
 
