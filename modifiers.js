@@ -97,8 +97,15 @@ function createPeople(names, gender) {
 function highestStatHTML([stats, names]) {
     var finalHTML = []
     Object.keys(stats).forEach((stat) => {
+        let charName = names[stat]
+        if (Array.isArray(names[stat])) {
+            charName = names[stat][0].slice(0, 4)
+            names[stat].slice(1).forEach((str) => {
+                charName += `, ${str.slice(0, 4)}`
+            })
+        }
         finalHTML.push(
-            `<li><p>${stat}</p><p>${names[stat]}</p><p>${stats[stat]}</p></li>`
+            `<li><p>${stat}</p><p>${charName}</p><p>${stats[stat]}</p></li>`
         )
     })
     return finalHTML
@@ -131,6 +138,11 @@ function getHighestStat(people) {
           if (char[stat] > maxStats[stat]) {
             maxStats[stat] = char[stat];
             nameForStat[stat] = person
+          }
+          else if (char[stat] === maxStats[stat]) {
+            if (!Array.isArray(nameForStat[stat]))
+                nameForStat[stat] = [nameForStat[stat]]
+            nameForStat[stat].push(person)
           }
         });
     });
