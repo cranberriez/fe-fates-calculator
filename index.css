@@ -11,6 +11,19 @@ body {
     justify-content: center;
     align-items: center;
     margin: -8px;
+    flex-direction: column;
+}
+
+header {
+    position: absolute;
+    top: 25px;
+    left: 15px;
+}
+
+header a {
+    padding: 10px;
+    background-color: white ;
+    color: black;
 }
 
 .characer_cont, .characer_cont > div {
@@ -69,10 +82,6 @@ ul {
 
 #child.has_child {
     background-color: #7f7f7f;
-}
-
-#child ul {
-    padding-top: 90px;
 }
 
 .char_data {

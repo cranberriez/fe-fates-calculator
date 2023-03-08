@@ -1,0 +1,56 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #222222;
+    font-family: sans-serif;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -8px;
+}
+
+header {
+    position: absolute;
+    top: 25px;
+    left: 15px;
+}
+
+header a {
+    padding: 10px;
+    background-color: white ;
+    color: black;
+}
+
+#char_lists {
+    display: flex;
+}
+
+#char_lists ul {
+    list-style: none;
+    padding: 0;
+}
+
+#char_lists ul li {
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+#char_lists ul li:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+
+#char_lists ul li:selected {
+    border: 1px solid black;
+}
+
+ul#men {
+    background-color: #74b9ff;
+}
+
+ul#women {
+    background-color: #fab1a0;
+}
