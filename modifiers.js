@@ -7,8 +7,16 @@ const women = ['Azura','Beruka','Camilla','Charlotte','Effie','Elise','Felicia',
 'Rinkah','Sakura','Selena','Setsuna']
 
 $(function() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+
     createPeople(men, 'men')
     createPeople(women, 'women')
+})
+
+window.addEventListener('resize', () => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
 })
 
 let statLabels = ['Str','Mag','Skl','Spd','Lck','Def','Res']
@@ -46,7 +54,7 @@ function updateData() {
         for (var key in selectedMale) {
             let value = selectedMale[key]
             $('#child-father').append(
-                `<li>${value ? value : ''}</li>`
+                `<li class='${value > 0 ? 'positive' : 'negative'}'>${value ? value : ''}</li>`
             )
         }
     }
@@ -57,7 +65,7 @@ function updateData() {
         for (var key in selectedFemale) {
             let value = selectedFemale[key]
             $('#child-mother').append(
-                `<li>${value ? value : ''}</li>`
+                `<li class='${value > 0 ? 'positive' : 'negative'}'>${value ? value : ''}</li>`
             )
         }
     }
@@ -74,8 +82,9 @@ function updateData() {
         }
         console.log(childStats)
         for (var key in childStats) {
+            let value = childStats[key]
             $('#child-modifiers').append(
-                `<li>${childStats[key]}</li>`
+                `<li class='${value > 0 ? 'positive' : 'negative'}'>${value}</li>`
             )
         }
     }
