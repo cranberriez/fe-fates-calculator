@@ -11,6 +11,44 @@ $(function() {
     createPeople(women, 'women')
 })
 
+let statLabels = ['Str','Mag','Skl','Spd','Lck','Def','Res']
+var selectedMale;
+var selectedFemale;
+
+$('#char_lists ul').on('click', 'li', function() {
+    let gender = this.dataset.gender
+    let charData = getCharacter(this.id)
+    if (gender == 'men') {
+        selectedMale = charData
+    }
+    else {
+        selectedFemale = charData
+    }
+    updateData()
+})
+
+function updateData() {
+    $('#child-label li').remove()
+    statLabels.forEach(element => {
+        $('#child-label').append(
+            `<li>${element}</li>`
+        )
+    });
+    if (selectedMale) {
+
+    }
+    if (selectedFemale) {
+
+    }
+}
+
+function getCharacter(charName) {
+    if (charName in universalData) return (universalData[charName])
+    if (charName in nohrianData) return (nohrianData[charName])
+    if (charName in hoshidanData) return (hoshidanData[charName])
+    return undefined
+}
+
 function createPeople(names, gender) {
     names.forEach(person => {
         var charData
@@ -19,12 +57,15 @@ function createPeople(names, gender) {
             charData = data
             name = person
         }
-        if (person in universalData) addPerson(universalData[person])
-        if (person in nohrianData) addPerson(nohrianData[person])
-        if (person in hoshidanData) addPerson(hoshidanData[person])
+        addPerson(getCharacter(person))
+        // if (person in universalData) addPerson(universalData[person])
+        // if (person in nohrianData) addPerson(nohrianData[person])
+        // if (person in hoshidanData) addPerson(hoshidanData[person])
 
-        $(`ul#${gender}`).append(
-            `<li id='${name}'>${name}</li>`
-        )
+        if (charData) {
+            $(`ul#${gender}`).append(
+                `<li id='${name}' data-gender='${gender}'>${name}</li>`
+            )
+        }
     });
 }
