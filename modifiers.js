@@ -44,9 +44,9 @@ function updateData() {
             `<li>Dad</li>`
         )
         for (var key in selectedMale) {
-
+            let value = selectedMale[key]
             $('#child-father').append(
-                `<li>${selectedMale[key]}</li>`
+                `<li>${value ? value : ''}</li>`
             )
         }
     }
@@ -55,9 +55,9 @@ function updateData() {
             `<li>Mom</li>`
         )
         for (var key in selectedFemale) {
-
+            let value = selectedFemale[key]
             $('#child-mother').append(
-                `<li>${selectedFemale[key]}</li>`
+                `<li>${value ? value : ''}</li>`
             )
         }
     }
