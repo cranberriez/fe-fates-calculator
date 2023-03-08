@@ -15,7 +15,7 @@ let statLabels = ['Str','Mag','Skl','Spd','Lck','Def','Res']
 var selectedMale;
 var selectedFemale;
 
-$('#char_lists ul').on('click', 'li', function() {
+$('#char_lists ul#men, #char_lists ul#women').on('click', 'li', function() {
     let gender = this.dataset.gender
     let charData = getCharacter(this.id)
     if (gender == 'men') {
@@ -28,17 +28,50 @@ $('#char_lists ul').on('click', 'li', function() {
 })
 
 function updateData() {
-    $('#child-label li').remove()
+    $('#child li').remove()
+    $('#child-label').append(`<li> </li>`)
     statLabels.forEach(element => {
         $('#child-label').append(
             `<li>${element}</li>`
         )
     });
     if (selectedMale) {
+        $('#child-father').append(
+            `<li>Dad</li>`
+        )
+        for (var key in selectedMale) {
 
+            $('#child-father').append(
+                `<li>${selectedMale[key]}</li>`
+            )
+        }
     }
     if (selectedFemale) {
+        $('#child-mother').append(
+            `<li>Mom</li>`
+        )
+        for (var key in selectedFemale) {
 
+            $('#child-mother').append(
+                `<li>${selectedFemale[key]}</li>`
+            )
+        }
+    }
+
+    if (selectedMale && selectedFemale) {
+        $('#child-modifiers').append(
+            `<li>Kid</li>`
+        )
+        let childStats = selectedMale
+        for (var key in childStats) {
+            childStats[key] += selectedFemale[key]
+        }
+        for (var key in childStats) {
+
+            $('#child-modifiers').append(
+                `<li>${selectedFemale[key]}</li>`
+            )
+        }
     }
 }
 
@@ -58,9 +91,6 @@ function createPeople(names, gender) {
             name = person
         }
         addPerson(getCharacter(person))
-        // if (person in universalData) addPerson(universalData[person])
-        // if (person in nohrianData) addPerson(nohrianData[person])
-        // if (person in hoshidanData) addPerson(hoshidanData[person])
 
         if (charData) {
             $(`ul#${gender}`).append(

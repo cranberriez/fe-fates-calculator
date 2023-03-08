@@ -54,3 +54,22 @@ ul#men {
 ul#women {
     background-color: #fab1a0;
 }
+
+#char_lists #child {
+    display: flex;
+}
+
+#child li {
+    height: 22px;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        padding-top: 40px;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    #char_lists {
+        display: flex;
+    }
+  }
