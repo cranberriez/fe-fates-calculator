@@ -101,14 +101,20 @@ ul li {
     border: 2px solid transparent
 }
 
-.parent#men li:hover {
+.parent#men li:not(.disabled):hover {
     background-color: rgba(116, 185, 255,0.8);
+    color: black;
 }
 
-.parent#women li:hover {
+.parent#women li:not(.disabled):hover {
     background-color: rgba(250, 177, 160,0.8);
+    color: black;
 }
 
+.parent li.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 
 .parent#men li.selected {
     background-color: #222;
@@ -130,8 +136,12 @@ ul li {
 
 #child {
     width: 100%;
-    display: flex;
+    max-width: 300px;
+
+    display: grid;
     grid-area: child;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
 }
 
 
@@ -227,6 +237,10 @@ ul li {
     }
     .parent li {
         padding: 0 8px;
+    }
+    #child {
+        flex-grow: 1;
+        max-width: 0;
     }
     #child ul {
         flex-grow: 1;

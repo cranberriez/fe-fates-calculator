@@ -22,24 +22,40 @@ window.addEventListener('resize', () => {
 })
 
 let statLabels = ['Str','Mag','Skl','Spd','Lck','Def','Res']
-var selectedMale;
-var selectedFemale;
+var selectedMale = undefined;
+var selectedFemale = undefined;
 
-$('#char_lists ul#men, #char_lists ul#women').on('click', 'li', function() {
+// On clicking already selected character
+$('#char_lists ul').on('click', 'li.selected', function() {
+    console.log('pop')
     let gender = this.dataset.gender
-    let charData = getCharacter(this.id)
-    if (gender == 'men') {
-        $('#men li').removeClass('selected')
-        $(this).addClass('selected')
-        selectedMale = charData
-    }
-    else if (gender == "women") {
-        $('#women li').removeClass('selected')
-        $(this).addClass('selected')
-        selectedFemale = charData
-    }
+    $(`#${gender} li`).removeClass('selected')
+    $(`.parent:not(#${gender}) li`).removeClass('disabled')
+    if (gender == 'men') selectedMale = undefined
+    else selectedFemale = undefined
     updateData()
 })
+
+// On clicking a character 
+$('#char_lists ul#men, #char_lists ul#women').on('click', 'li:not(.selected,.disabled)', function() {
+    const gender = this.dataset.gender;
+    const expansion = getExpansion(this.id);
+    const excludedExpansion = expansion === 'nohrian' ? 'hoshidan' : 'nohrian';
+    const charData = getCharacter(this.id);
+
+    $(`#${gender} li`).removeClass('selected');
+    $(`.parent:not(#${gender}) li`).removeClass('disabled');
+    $(this).addClass('selected');
+    $(`.parent:not(#${gender}) li.${excludedExpansion}`).addClass('disabled');
+
+    if (gender === 'men') {
+        selectedMale = charData;
+    } else if (gender === 'women') {
+        selectedFemale = charData;
+    }
+
+    updateData();
+});
 
 function updateData() {
     $('#child li').remove();
@@ -69,6 +85,13 @@ function updateData() {
     }
 }
 
+function getExpansion(charName) {
+    if (charName in universalData) return 'universal'
+    if (charName in nohrianData) return 'nohrian'
+    if (charName in hoshidanData) return 'hoshidan'
+    return undefined
+}
+
 function getCharacter(charName) {
     if (charName in universalData) return (universalData[charName])
     if (charName in nohrianData) return (nohrianData[charName])
@@ -88,7 +111,7 @@ function createPeople(names, gender) {
 
         if (charData) {
             $(`ul#${gender}`).append(
-                `<li id='${name}' data-gender='${gender}'>${name}</li>`
+                `<li id='${name}' class='${getExpansion(name)}' data-gender='${gender}'>${name}</li>`
             )
         }
     });
