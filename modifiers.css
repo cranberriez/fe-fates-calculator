@@ -101,7 +101,7 @@ ul li {
     border: 2px solid transparent
 }
 
-.parent#men li:not(.disabled):hover {
+/* .parent#men li:not(.disabled):hover {
     background-color: rgba(116, 185, 255,0.8);
     color: black;
 }
@@ -109,7 +109,7 @@ ul li {
 .parent#women li:not(.disabled):hover {
     background-color: rgba(250, 177, 160,0.8);
     color: black;
-}
+} */
 
 .parent li.disabled {
     opacity: 0.5;
