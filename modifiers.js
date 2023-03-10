@@ -30,7 +30,7 @@ $('#char_lists ul').on('click', 'li.selected', function() {
     console.log('pop')
     let gender = this.dataset.gender
     $(`#${gender} li`).removeClass('selected')
-    $(`.parent:not(#${gender}) li`).removeClass('disabled')
+    // $(`.parent:not(#${gender}) li`).removeClass('disabled')
     if (gender == 'men') selectedMale = undefined
     else selectedFemale = undefined
     updateData()
@@ -44,9 +44,9 @@ $('#char_lists ul#men, #char_lists ul#women').on('click', 'li:not(.selected,.dis
     const charData = getCharacter(this.id);
 
     $(`#${gender} li`).removeClass('selected');
-    $(`.parent:not(#${gender}) li`).removeClass('disabled');
+    // $(`.parent:not(#${gender}) li`).removeClass('disabled');
     $(this).addClass('selected');
-    $(`.parent:not(#${gender}) li.${excludedExpansion}`).addClass('disabled');
+    // $(`.parent:not(#${gender}) li.${excludedExpansion}`).addClass('disabled');
 
     if (gender === 'men') {
         selectedMale = charData;
