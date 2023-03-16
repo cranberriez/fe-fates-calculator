@@ -20,7 +20,7 @@ body {
 main {
     display: grid;
     grid-template-columns: min-content 1fr;
-    grid-template-rows: 25% min-content 1fr;
+    grid-template-rows: min-content min-content 1fr;
     grid-template-areas: 
         "chars child"
         "chars swap-button"
