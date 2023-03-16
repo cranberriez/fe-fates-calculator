@@ -130,7 +130,7 @@ function highestStatHTML([stats, names]) {
             })
         }
         finalHTML.push(
-            `<li><p>${stat}</p><p>${charName}</p><p>${stats[stat]}</p></li>`
+            `<li><p>${stat}</p><p>${stats[stat]}</p><p>${charName}</p></li>`
         )
     })
     return finalHTML

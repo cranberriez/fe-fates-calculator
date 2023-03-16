@@ -190,7 +190,7 @@ ul li {
 
 .highest-stat li {
     display: grid;
-    grid-template-columns: 30% 60% 10%;
+    grid-template-columns: 30% 8% 62%;
     grid-template-rows: 1fr;
     margin-bottom: 15px;
     border-bottom: 1px solid #333333;
