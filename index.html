@@ -16,7 +16,7 @@
             <a class='active' href="index.html">Modifiers</a>
         </header> -->
         <main>
-            <div id="char_lists">
+            <div id="char_lists" class="">
                 <ul id="men" class="parent">
 
                 </ul>
@@ -30,13 +30,27 @@
                 <ul id="child-female"></ul>
                 <ul id="child-modifiers"></ul>
             </div>
-            <div id="highest-male" class="highest-stat">
-                <p class="highest-label">Male Maxes</p>
-                <ul></ul>
+
+            <div id="swap-button">
+                <button onclick="changeView('parents')" id='parent-view-button'  class="hidden">Switch to Parent View</button>
+                <button onclick="changeView('classes')" id='class-view-button'>Switch to Class View</button>
             </div>
-            <div id="highest-female" class="highest-stat">
-                <p class="highest-label">Female Maxes</p>
-                <ul></ul>
+
+            <div id="class_list" class="hidden">
+                <div id="class-selector">
+                    <button data-expansion='hoshidan-classes' class="active">Hosh</button>
+                    <button data-expansion='nohrian-classes'>Nohr</button>
+                    <button data-expansion='other-classes'>Other</button>
+                </div>
+                <ul id="hoshidan-classes"></ul>
+                <ul id="nohrian-classes" class="hidden"></ul>
+                <ul id="other-classes" class="hidden"></ul>
+            </div>
+
+            <div id="class_stats">
+                <ul id="class-label"></ul>
+                <ul id="class-max"></ul>
+                <ul id="class-combined"></ul>
             </div>
         </main>
         <script
@@ -44,6 +58,7 @@
 			  integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
 			  crossorigin="anonymous"></script>
         <script src="modifierData.js"></script>
+        <script src="classData.js"></script>
         <script src="modifiers.js"></script>
     </body>
 </html>
