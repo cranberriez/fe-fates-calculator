@@ -14,6 +14,8 @@ $(function() {
     createPeople(women, 'women')
     $('#highest-male ul').append(highestStatHTML(getHighestStat(men)))
     $('#highest-female ul').append(highestStatHTML(getHighestStat(women)))
+
+    setClassData('hoshidan-classes')
 })
 
 window.addEventListener('resize', () => {
@@ -171,4 +173,42 @@ function getHighestStat(people) {
     });
 
     return [maxStats, nameForStat]   
+}
+
+function selectInfo(menuName) {
+    console.log(menuName)
+    $(".info-menu").removeClass('active')
+    $(`#${menuName}`).addClass('active')
+
+    $('#extra-info-buttons button').removeClass('active')
+    $(this).addClass('active')
+} 
+
+function setClassData(expansion) {
+    let data;
+    switch (expansion) {
+        case "hoshidan-classes": 
+            data = hoshidanClasses
+            console.log(data)
+    }
+
+    createClasses(data, expansion)
+}
+
+function createClasses(data, expansion) {
+    if (!data) return
+    let list = $(`#${expansion}`)
+    Object.keys(data).forEach((className) => {
+        $(list).append(
+            `<li class="child-class"><button onclick="setClass('${className}')">${className}</button></li>`
+        )
+    })
+}
+
+function getClassData(className) {
+    if (className in hoshidanClasses) return hoshidanClasses[className]
+}
+
+function setClass(className) {
+    console.log(className)
 }

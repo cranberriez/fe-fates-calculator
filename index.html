@@ -30,13 +30,29 @@
                 <ul id="child-female"></ul>
                 <ul id="child-modifiers"></ul>
             </div>
-            <div id="highest-male" class="highest-stat">
-                <p class="highest-label">Male Maxes</p>
-                <ul></ul>
-            </div>
-            <div id="highest-female" class="highest-stat">
-                <p class="highest-label">Female Maxes</p>
-                <ul></ul>
+            <div id="extra-info">
+                <div id="extra-info-buttons">
+                    <button onclick="selectInfo('highest-stats')">High Stats</button>
+                    <button onclick="selectInfo('child-classes')">Child Class</button>
+                </div>
+                <div id="extra-info-cont">
+                    <div id="highest-stats" class="info-menu">
+                        <div id="highest-male" class="highest-stat">
+                            <p class="highest-label">Male Maxes</p>
+                            <ul></ul>
+                        </div>
+                        <div id="highest-female" class="highest-stat">
+                            <p class="highest-label">Female Maxes</p>
+                            <ul></ul>
+                        </div>
+                    </div>
+                    <div id="child-classes" class="info-menu active">
+                        <p id="class-name">Hoshidan Classes</p>
+                        <ul id="hoshidan-classes">
+
+                        </ul>
+                    </div>
+                </div>
             </div>
         </main>
         <script
@@ -44,6 +60,7 @@
 			  integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
 			  crossorigin="anonymous"></script>
         <script src="modifierData.js"></script>
+        <script src="classData.js"></script>
         <script src="modifiers.js"></script>
     </body>
 </html>

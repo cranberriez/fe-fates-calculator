@@ -19,12 +19,12 @@ body {
 
 main {
     display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: min-content 1fr;
+    grid-template-rows: 25% 50% 25%;
     grid-template-areas: 
     "chars child"
-    "chars highestMale"
-    "chars highestFemale";
+    "chars extra-info"
+    "chars extra-info";
 }
 
 header {
@@ -116,21 +116,15 @@ ul li {
     cursor: not-allowed;
 }
 
-.parent#men li.selected {
-    background-color: #222;
-}
-
-.parent#women li.selected {
-    background-color: #222;
-}
-
-.parent#men li.selected {
+#men li.selected {
     border: 2px solid #74b9ff;
+    background-color: #222;
     color: #74b9ff;
 }
 
-.parent#women li.selected {
+#women li.selected {
     border: 2px solid #fab1a0;
+    background-color: #222;
     color: #fab1a0;
 }
 
@@ -227,6 +221,69 @@ ul li {
     border-bottom: 1px solid rgba(250, 177, 160, 1);
 }
 
+#extra-info {
+    grid-area: extra-info;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#extra-info-cont {
+    flex-grow: 1;
+}
+
+#extra-info-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#extra-info-buttons button {
+    padding: 8px;
+    margin-right: 10px;
+    font-size: 16px;
+    border: 1px solid white;
+}
+
+.info-menu:not(.active) {
+    display: none;
+}
+
+.info-menu.active {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+}
+
+#child-classes {
+    align-items: flex-end;
+}
+
+#child-classes p#class-name {
+    color: white;
+}
+
+#child-classes ul {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-grow: 1;
+}
+
+.child-class {
+    flex-grow: 1;
+    
+}
+
+.child-class button {
+    font-size: 14px;
+    width: 100%;
+    height: 100%;
+    text-align: start;
+    padding: 0 5px 0 5px;
+}
+
 @media only screen and (max-width: 600px) {
     body {
         justify-content: flex-start;
@@ -248,8 +305,8 @@ ul li {
     main {
         grid-template-areas: 
         "chars child"
-        "chars highestMale"
-        "chars highestFemale";
+        "chars extra-info"
+        "chars extra-info";
     }
     .highest-stat li {
         margin-bottom: 8px;
