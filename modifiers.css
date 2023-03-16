@@ -24,7 +24,7 @@ main {
     grid-template-areas: 
         "chars child"
         "chars swap-button"
-        "chars clsas-stats";
+        "chars class-stats";
 }
 
 header {
@@ -259,9 +259,34 @@ ul li {
     font-weight: 700;
 }
 
+
+/* Class Stats */
+
 #class_stats {
-    display: flex;
+    width: 100%;
+    max-width: 300px;
+
+    display: grid;
+    grid-area: class-stats;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: auto;
+}
+
+#class_stats ul {
+    flex-grow: 1;
     color: white;
+}
+
+#class_stats ul li {
+    padding: 14px 0;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #555;
+}
+
+#class_stats ul li:first-child {
+    padding: 25px 0;
 }
 
 @media only screen and (max-width: 600px) {
@@ -286,7 +311,7 @@ ul li {
         grid-template-areas: 
         "chars child"
         "chars swap-button"
-        "chars clsas-stats";
+        "chars class-stats";
     }
 }
 
