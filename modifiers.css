@@ -19,7 +19,7 @@ body {
 
 main {
     display: grid;
-    grid-template-columns: 38vw 1fr;
+    grid-template-columns: min-content 1fr;
     grid-template-rows: 25% min-content 1fr;
     grid-template-areas: 
         "chars child"
