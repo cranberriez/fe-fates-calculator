@@ -15,7 +15,7 @@ $(function() {
     $('#highest-male ul').append(highestStatHTML(getHighestStat(men)))
     $('#highest-female ul').append(highestStatHTML(getHighestStat(women)))
 
-    setClassData('hoshidan-classes')
+    setClassData()
 })
 
 window.addEventListener('resize', () => {
@@ -26,6 +26,7 @@ window.addEventListener('resize', () => {
 let statLabels = ['Str','Mag','Skl','Spd','Lck','Def','Res']
 var selectedMale = undefined;
 var selectedFemale = undefined;
+var selectedClass = undefined;
 
 // On clicking already selected character
 $('#char_lists ul').on('click', 'li.selected', function() {
@@ -42,7 +43,7 @@ $('#char_lists ul').on('click', 'li.selected', function() {
 $('#char_lists ul#men, #char_lists ul#women').on('click', 'li:not(.selected,.disabled)', function() {
     const gender = this.dataset.gender;
     const expansion = getExpansion(this.id);
-    const excludedExpansion = expansion === 'nohrian' ? 'hoshidan' : 'nohrian';
+    // const excludedExpansion = expansion === 'nohrian' ? 'hoshidan' : 'nohrian';
     const charData = getCharacter(this.id);
 
     $(`#${gender} li`).removeClass('selected');
@@ -57,6 +58,8 @@ $('#char_lists ul#men, #char_lists ul#women').on('click', 'li:not(.selected,.dis
     }
 
     updateData();
+    console.log(selectedClass)
+    if (selectedClass) setClass(selectedClass)
 });
 
 function updateData() {
@@ -184,31 +187,78 @@ function selectInfo(menuName) {
     $(this).addClass('active')
 } 
 
-function setClassData(expansion) {
-    let data;
-    switch (expansion) {
-        case "hoshidan-classes": 
-            data = hoshidanClasses
-            console.log(data)
-    }
-
-    createClasses(data, expansion)
+function setClassData() {
+    createClasses(hoshidanClasses, 'hoshidan-classes')
+    createClasses(nohrianClasses, 'nohrian-classes')
+    createClasses(otherClasses, 'other-classes')
 }
 
 function createClasses(data, expansion) {
-    if (!data) return
+    if (!data) {
+        console.log(`Can't find ${expansion}`)
+        return
+    }
     let list = $(`#${expansion}`)
     Object.keys(data).forEach((className) => {
         $(list).append(
-            `<li class="child-class"><button onclick="setClass('${className}')">${className}</button></li>`
+            `<li class="child-class" data-classname="${className}">${className}</li>`
         )
     })
 }
 
 function getClassData(className) {
     if (className in hoshidanClasses) return hoshidanClasses[className]
+    if (className in nohrianClasses) return nohrianClasses[className]
+    if (className in otherClasses) return otherClasses[className]
 }
 
+$("#class-selector button").on('click', function() {
+    let expansion = $(this).data('expansion')
+    $("#class-selector button").removeClass('active')
+    $(this).addClass(('active'))
+    $(`#class_list ul`).addClass('hidden')
+    $(`#class_list #${expansion}`).removeClass('hidden')
+})
+
+function changeView(view) {
+    console.log(view)
+    if (view === "parents") {
+        $('#class_list').addClass('hidden')
+        $('#char_lists').removeClass('hidden')
+        $('#parent-view-button').addClass('hidden')
+        $('#class-view-button').removeClass('hidden')
+    }
+    else if (view === "classes") {
+        $('#char_lists').addClass('hidden')
+        $('#class_list').removeClass('hidden')
+        $('#class-view-button').addClass('hidden')
+        $('#parent-view-button').removeClass('hidden')
+        
+    }
+}
+
+$("#class_list ul").on('click', 'li', function() {
+    let className = $(this).data('classname')
+    $('#class_list ul li').removeClass('active')
+    $(this).addClass('active')
+    setClass(className)
+})
+
 function setClass(className) {
-    console.log(className)
+    $('#class_stats ul li').remove()
+    let classData = getClassData(className)
+    selectedClass = className
+    $('#class-label').append('<li></li>')
+    $('#class-max').append(`<li>${className}</li>`)
+    $('#class-combined').append(`<li>Child</li>`)
+    Object.keys(classData).forEach((stat) => {
+        $('#class-label').append(`<li>${stat}</li>`)
+        $('#class-max').append(`<li>${classData[stat]}</li>`)
+        if (selectedMale && selectedFemale) {
+            let totalStat = selectedMale[stat] + selectedFemale[stat] + classData[stat]
+            $('#class-combined').append(`<li>${totalStat}</li>`)
+        }
+    })
+
+    
 }

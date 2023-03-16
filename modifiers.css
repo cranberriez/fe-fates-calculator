@@ -19,12 +19,12 @@ body {
 
 main {
     display: grid;
-    grid-template-columns: min-content 1fr;
-    grid-template-rows: 25% 50% 25%;
+    grid-template-columns: 38vw 1fr;
+    grid-template-rows: 25% min-content 1fr;
     grid-template-areas: 
-    "chars child"
-    "chars extra-info"
-    "chars extra-info";
+        "chars child"
+        "chars swap-button"
+        "chars clsas-stats";
 }
 
 header {
@@ -55,7 +55,14 @@ li {
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */
-  }
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* Parent Lists */
 
 #char_lists {
     display: flex;
@@ -101,16 +108,6 @@ ul li {
     border: 2px solid transparent
 }
 
-/* .parent#men li:not(.disabled):hover {
-    background-color: rgba(116, 185, 255,0.8);
-    color: black;
-}
-
-.parent#women li:not(.disabled):hover {
-    background-color: rgba(250, 177, 160,0.8);
-    color: black;
-} */
-
 .parent li.disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -127,6 +124,9 @@ ul li {
     background-color: #222;
     color: #fab1a0;
 }
+
+
+/* Child Stats */
 
 #child {
     width: 100%;
@@ -177,111 +177,91 @@ ul li {
     color:rgba(250, 177, 160, 1);
 }
 
-.highest-stat {
-    max-width: 300px;
-    padding: 5px;
-    color: #CCCCCC;
-}
 
-.highest-stat p.highest-label {
-    text-align: center;
-    margin-bottom: 10px;
-}
+/* Swap Buttons */
 
-.highest-stat li {
-    display: grid;
-    grid-template-columns: 30% 8% 62%;
-    grid-template-rows: 1fr;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #333333;
-}
-
-.highest-stat li p {
-    font-size: 16px;
-    font-weight: 300;
-}
-
-.highest-stat li p:first-child {
-    font-weight: 500;
-    text-align: end;
-    padding-right: 10px;
-}
-
-.highest-stat li p:last-child {
-    font-weight: 700;
-}
-
-#highest-male .highest-label {
-    color: rgba(116, 185, 255,1);
-    border-bottom: 1px solid rgba(116, 185, 255,1);
-}
-
-#highest-female .highest-label {
-    color:rgba(250, 177, 160, 1);
-    border-bottom: 1px solid rgba(250, 177, 160, 1);
-}
-
-#extra-info {
-    grid-area: extra-info;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-#extra-info-cont {
-    flex-grow: 1;
-}
-
-#extra-info-buttons {
-    display: flex;
-    flex-wrap: wrap;
+#swap-button {
+    grid-area: swap-button;
     width: 100%;
-    margin-bottom: 10px;
 }
 
-#extra-info-buttons button {
-    padding: 8px;
-    margin-right: 10px;
-    font-size: 16px;
-    border: 1px solid white;
+#swap-button button {
+    width: 100%;
+    font-size: 18px;
+    padding: 5px;
 }
 
-.info-menu:not(.active) {
+#swap-button button.active {
     display: none;
 }
 
-.info-menu.active {
+
+/* Class List */
+
+#class_list {
     display: flex;
-    height: 100%;
     flex-direction: column;
+    height: 100%;
+    grid-area: chars;
 }
 
-#child-classes {
-    align-items: flex-end;
+#class-selector {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
 }
 
-#child-classes p#class-name {
+#class-selector button {
+    flex-grow: 1;
+    font-size: 16px;
+    padding: 3px;
+    background-color: #222;
+    border: 2px solid white;
     color: white;
 }
 
-#child-classes ul {
+#class-selector button:nth-child(2) {
+    border-left: 0px;
+    border-right: 0px;
+}
+
+#class-selector button.active {
+    background-color: white;
+    color: black;
+}
+
+
+#class_list ul {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    flex-grow: 1;
-}
-
-.child-class {
-    flex-grow: 1;
-    
-}
-
-.child-class button {
-    font-size: 14px;
-    width: 100%;
     height: 100%;
-    text-align: start;
-    padding: 0 5px 0 5px;
+    width: 100%;
+}
+
+#class_list ul li {
+    flex-grow: 1;
+    height: auto;
+    width: 100%;
+    background-color: #eee;
+    padding: 0 5px;
+    color: black;
+    border: 1px solid #ccc;
+}
+
+#class_list ul li:not(:first-child) {
+    border-top: 0;
+}
+
+#class_list ul li.active {
+    color: #213130;
+    background-color: #A9f5f3;
+    border-color: #A9f5f3;
+    font-weight: 700;
+}
+
+#class_stats {
+    display: flex;
+    color: white;
 }
 
 @media only screen and (max-width: 600px) {
@@ -305,14 +285,8 @@ ul li {
     main {
         grid-template-areas: 
         "chars child"
-        "chars extra-info"
-        "chars extra-info";
-    }
-    .highest-stat li {
-        margin-bottom: 8px;
-    }
-    .highest-stat p.highest-label {
-        margin-bottom: 4px;
+        "chars swap-button"
+        "chars clsas-stats";
     }
 }
 
