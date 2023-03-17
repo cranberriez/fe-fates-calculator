@@ -12,8 +12,6 @@ $(function() {
 
     createPeople(men, 'men')
     createPeople(women, 'women')
-    $('#highest-male ul').append(highestStatHTML(getHighestStat(men)))
-    $('#highest-female ul').append(highestStatHTML(getHighestStat(women)))
 
     setClassData()
 })
@@ -30,7 +28,6 @@ var selectedClass = undefined;
 
 // On clicking already selected character
 $('#char_lists ul').on('click', 'li.selected', function() {
-    console.log('pop')
     let gender = this.dataset.gender
     $(`#${gender} li`).removeClass('selected')
     // $(`.parent:not(#${gender}) li`).removeClass('disabled')
@@ -58,7 +55,6 @@ $('#char_lists ul#men, #char_lists ul#women').on('click', 'li:not(.selected,.dis
     }
 
     updateData();
-    console.log(selectedClass)
     if (selectedClass) setClass(selectedClass)
 });
 
@@ -66,27 +62,27 @@ function updateData() {
     $('#child li').remove();
     $('#child-label').html(`<li></li><li>${statLabels.join('</li><li>')}</li>`);
     
-    const displayParent = (sex, data) => {
-      if (!sex) return;
-      $('#child-' + sex).append(`<li>${sex.charAt(0).toUpperCase()}</li>`);
-      for (const key in data) {
-        const value = data[key];
-        $('#child-' + sex).append(`<li class="${value > 0 ? 'positive' : 'negative'}">${value || ''}</li>`);
-      }
+    const displayParent = (gender, data) => {
+        if (!gender) return;
+        $('#child-' + gender).append(`<li>${gender.charAt(0).toUpperCase()}</li>`);
+        for (const key in data) {
+            const value = data[key];
+            $('#child-' + gender).append(`<li class="${value > 0 ? 'positive' : 'negative'}">${value || ''}</li>`);
+        }
     };
     
     displayParent('male', selectedMale);
     displayParent('female', selectedFemale);
     
     if (selectedMale && selectedFemale) {
-      $('#child-modifiers').html(`<li>C</li>`);
-      const childStats = Object.fromEntries(
-        Object.entries(selectedMale).map(([key, value]) => [key, value + selectedFemale[key] + 1])
-    );
-      for (const key in childStats) {
-        const value = childStats[key];
-        $('#child-modifiers').append(`<li class="${value > 0 ? 'positive' : 'negative'}">${value}</li>`);
-      }
+        $('#child-modifiers').html(`<li>C</li>`);
+        const childStats = Object.fromEntries(
+            Object.entries(selectedMale).map(([key, value]) => [key, value + selectedFemale[key] + 1])
+            );
+        for (const key in childStats) {
+            const value = childStats[key];
+            $('#child-modifiers').append(`<li class="${value > 0 ? 'positive' : 'negative'}">${value}</li>`);
+        }
     }
 }
 
@@ -122,64 +118,7 @@ function createPeople(names, gender) {
     });
 }
 
-function highestStatHTML([stats, names]) {
-    var finalHTML = []
-    Object.keys(stats).forEach((stat) => {
-        let charName = names[stat]
-        if (Array.isArray(names[stat])) {
-            charName = names[stat][0].slice(0, 4)
-            names[stat].slice(1).forEach((str) => {
-                charName += `, ${str.slice(0, 4)}`
-            })
-        }
-        finalHTML.push(
-            `<li><p>${stat}</p><p>${stats[stat]}</p><p>${charName}</p></li>`
-        )
-    })
-    return finalHTML
-}
-
-function getHighestStat(people) {
-    let maxStats = {
-        Str: -Infinity,
-        Mag: -Infinity,
-        Skl: -Infinity,
-        Spd: -Infinity,
-        Lck: -Infinity,
-        Def: -Infinity,
-        Res: -Infinity,
-    }
-
-    let nameForStat = {
-        Str: '',
-        Mag: '',
-        Skl: '',
-        Spd: '',
-        Lck: '',
-        Def: '',
-        Res: '',
-    }
-
-    people.forEach((person) => {
-        let char = getCharacter(person)
-        Object.keys(char).forEach((stat) => {
-          if (char[stat] > maxStats[stat]) {
-            maxStats[stat] = char[stat];
-            nameForStat[stat] = person
-          }
-          else if (char[stat] === maxStats[stat]) {
-            if (!Array.isArray(nameForStat[stat]))
-                nameForStat[stat] = [nameForStat[stat]]
-            nameForStat[stat].push(person)
-          }
-        });
-    });
-
-    return [maxStats, nameForStat]   
-}
-
 function selectInfo(menuName) {
-    console.log(menuName)
     $(".info-menu").removeClass('active')
     $(`#${menuName}`).addClass('active')
 
@@ -188,6 +127,7 @@ function selectInfo(menuName) {
 } 
 
 function setClassData() {
+    $.get({url: "http://50.47.154.50:8080/dataEP"});
     createClasses(hoshidanClasses, 'hoshidan-classes')
     createClasses(nohrianClasses, 'nohrian-classes')
     createClasses(otherClasses, 'other-classes')
@@ -221,7 +161,6 @@ $("#class-selector button").on('click', function() {
 })
 
 function changeView(view) {
-    console.log(view)
     if (view === "parents") {
         $('#class_list').addClass('hidden')
         $('#char_lists').removeClass('hidden')
@@ -258,7 +197,5 @@ function setClass(className) {
             let totalStat = selectedMale[stat] + selectedFemale[stat] + classData[stat]
             $('#class-combined').append(`<li>${totalStat}</li>`)
         }
-    })
-
-    
+    })   
 }
