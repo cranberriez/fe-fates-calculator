@@ -127,7 +127,6 @@ function selectInfo(menuName) {
 } 
 
 function setClassData() {
-    $.get({url: "http://50.47.154.50:8080/dataEP"});
     createClasses(hoshidanClasses, 'hoshidan-classes')
     createClasses(nohrianClasses, 'nohrian-classes')
     createClasses(otherClasses, 'other-classes')
